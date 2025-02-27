@@ -1,0 +1,65 @@
+{
+    "greetings": {
+        "hello": "Hello! How can I assist you today? 😊",
+        "hi": "Hi there! What’s up? 🚀",
+        "hey": "Hey! Need help with something? 😃",
+        "good_morning": "Good morning! Hope you have a productive day ahead! ☀️",
+        "good_afternoon": "Good afternoon! Need any help with your studies? 📚",
+        "good_evening": "Good evening! How's your day going? 🌙"
+    },
+    "general_conversation": {
+        "how_are_you": "I'm just a bot, but I’m feeling awesome! How about you? 😃",
+        "who_are_you": "I'm your friendly chatbot, here to assist you with your queries! 🤖",
+        "what_can_you_do": "I can answer questions, provide general information, and help with your queries! Just ask. 😊",
+        "who_made_you": "I was built by a talented developer🎓 (that is farhan!) ",
+        "tell_me_a_joke": "Why do programmers prefer dark mode? Because light attracts bugs! 😆",
+        "tell_me_another_joke": "Why did the developer go broke? Because he used up all his cache! 😂"
+    },
+    "help_and_support": {
+        "help": "Sure! Let me know what you're looking for, and I'll do my best to assist. 😊",
+        "can_you_help_me": "Of course! Tell me what you need help with. 📚",
+        "i_need_assistance": "I'm here to help! What do you need assistance with? 🔍",
+        "i_have_a_question": "Go ahead! I'm ready to answer your questions. 💡"
+    },
+    "farewells": {
+        "bye": "Goodbye! Have a great day ahead! 👋",
+        "goodbye": "See ya later! Keep learning and stay awesome! 🚀",
+        "see_you_later": "See you next time! Don't hesitate to ask if you need anything. 😊",
+        "take_care": "Take care! Keep up the great work. 👍"
+    },
+    "appreciation": {
+        "thanks": "You're welcome! 😃 Let me know if you need anything else.",
+        "thank_you": "No problem at all! I'm here to help. 😊",
+        "i_appreciate_it": "I’m glad I could help! Let me know if you have more questions. 🤓"
+    },
+    "motivation": {
+        "motivate_me": "Success isn’t about luck; it’s about consistency. Keep learning, keep building, and you’ll reach the top! 🚀",
+        "give_me_inspiration": "The secret to getting ahead is getting started. Stay focused, and keep pushing forward! 💪",
+        "study_tips": "Make a study plan, take breaks, and stay consistent. You've got this! 💡"
+    },
+    "fun_facts": {
+        "tell_me_something_interesting": "Did you know? The first computer bug was a real moth stuck in a relay! 🦋💻",
+        "give_me_a_fun_fact": "Alan Turing, the father of computer science, broke the Nazi Enigma code during WWII! 🔥",
+        "who_is_the_richest_programmer": "Jeff Bezos started as a programmer before founding Amazon! But Bill Gates and Elon Musk are also top earners! 💰"
+    },
+    "technology_trends": {
+        "latest_tech_trend": "AI and machine learning are transforming industries, with applications in automation, healthcare, and cybersecurity! 🤖",
+        "future_of_tech": "Quantum computing and 6G networks are on the horizon, promising faster processing and connectivity. 🚀",
+        "best_gadgets": "Some of the top gadgets right now include AR/VR headsets, smart home devices, and AI-powered assistants. 🏠💡"
+    },
+    "space_facts": {
+        "interesting_space_fact": "Did you know? A day on Venus is longer than a year on Venus! ⏳🪐",
+        "black_hole_fact": "Nothing can escape a black hole once it crosses the event horizon – not even light! 🌌",
+        "mars_exploration": "NASA's Perseverance rover is currently exploring Mars, searching for signs of ancient life! 🚀"
+    },
+    "science_facts": {
+        "interesting_science_fact": "Water can boil and freeze at the same time under the right conditions, called the triple point! ❄️🔥",
+        "human_brain_fact": "Your brain generates about 12-25 watts of electricity – enough to power a small light bulb! 💡",
+        "ocean_mystery": "More than 80% of the ocean remains unexplored – we know more about Mars than our own seas! 🌊"
+    },
+    "life_advice": {
+        "how_to_be_successful": "Success comes from consistency, learning, and adapting. Never stop growing! 💪",
+        "how_to_stay_happy": "Surround yourself with positive people, keep learning, and take time to relax. 😊",
+        "best_productivity_tips": "Use the Pomodoro technique, limit distractions, and set clear goals to boost productivity! ⏳"
+    }
+}

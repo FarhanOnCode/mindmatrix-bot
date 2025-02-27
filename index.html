@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Matrix Chatbot</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4712/4712106.png" type="image/png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Core Design System */
+        :root {
+            /* Colors */
+            --bg-primary: #050b1f;
+            --bg-secondary: #0a1128;
+            --surface-dark: rgba(16, 23, 41, 0.8);
+            --surface-medium: rgba(30, 39, 69, 0.6);
+            --surface-light: rgba(43, 53, 83, 0.5);
+            
+            /* Accent Colors */
+            --accent-neon-blue: #00f0ff;
+            --accent-neon-purple: #b026ff;
+            --accent-neon-pink: #ff2987;
+            --accent-neon-cyan: #00e1d9;
+            
+            /* Gradients */
+            --gradient-main: linear-gradient(to right, var(--accent-neon-blue), var(--accent-neon-purple));
+            --gradient-accent: linear-gradient(135deg, var(--accent-neon-pink), var(--accent-neon-cyan));
+            --gradient-surface: linear-gradient(135deg, rgba(16, 23, 41, 0.8), rgba(30, 39, 69, 0.7));
+            
+            /* Text Colors */
+            --text-primary: rgba(255, 255, 255, 0.95);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.5);
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-xxl: 3rem;
+            
+            /* Sizing */
+            --radius-sm: 0.5rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            --radius-round: 9999px;
+            
+            /* Shadows */
+            --shadow-sm: 0 5px 10px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.4);
+            --shadow-neon-blue: 0 0 15px rgba(0, 240, 255, 0.5);
+            --shadow-neon-purple: 0 0 15px rgba(176, 38, 255, 0.5);
+            
+            /* Transitions */
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-medium: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Background Effects */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(to right, rgba(43, 53, 83, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(43, 53, 83, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center;
+        }
+
+        .bg-glow {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.1) 0%, rgba(176, 38, 255, 0.07) 30%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            filter: blur(100px);
+        }
+
+        .bg-glow:nth-child(2) {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 41, 135, 0.08) 0%, rgba(0, 225, 217, 0.05) 40%, transparent 70%);
+            animation: pulseGlow 15s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.9; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+        }
+
+        /* Main Chat Container */
+        .app-container {
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            max-height: 900px;
+            min-height: 600px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: var(--surface-dark);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .app-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            padding: 2px;
+            border-radius: var(--radius-xl);
+            background: var(--gradient-main);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            opacity: 0.7;
+            z-index: -1;
+        }
+
+        /* Header */
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-lg) var(--space-xl);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .app-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            background: var(--gradient-main);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+
+        .app-logo::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-neon-blue);
+            margin-right: var(--space-sm);
+            box-shadow: 0 0 10px var(--accent-neon-blue);
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .header-right {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-medium);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-main);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-neon-blue);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-neon-purple);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-icon {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            font-size: 1.1rem;
+        }
+
+        /* Main Chat Area */
+        .chat-messages {
+            flex: 1;
+            padding: var(--space-lg);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+            position: relative;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-neon-cyan) var(--surface-medium);
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: var(--surface-medium);
+            border-radius: var(--radius-round);
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: var(--accent-neon-cyan);
+            border-radius: var(--radius-round);
+        }
+
+        /* Messages */
+        .message {
+            max-width: 80%;
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--radius-lg);
+            line-height: 1.5;
+            position: relative;
+            animation: messageAppear 0.3s ease-out forwards;
+            box-shadow: var(--shadow-sm);
+        }
+
+        @keyframes messageAppear {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .user {
+            align-self: flex-end;
+            background: var(--surface-light);
+            border-bottom-right-radius: 0;
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: -12px;
+            width: 20px;
+            height: 20px;
+            background: var(--surface-light);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            clip-path: polygon(0 0, 0% 100%, 100% 100%);
+        }
+
+        .bot {
+            align-self: flex-start;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(176, 38, 255, 0.15));
+            border-bottom-left-radius: 0;
+            color: var(--text-primary);
+            box-shadow: 0 2px 10px rgba(0, 240, 255, 0.2);
+        }
+
+        .bot::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -12px;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(176, 38, 255, 0.15));
+            clip-path: polygon(100% 0, 100% 100%, 0 100%);
+        }
+
+        /* Input Area */
+        .chat-input-area {
+            padding: var(--space-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--surface-dark);
+            backdrop-filter: blur(10px);
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+            position: relative;
+        }
+
+        .chat-input-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .chat-input {
+            width: 100%;
+            padding: var(--space-md) var(--space-lg);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: var(--text-primary);
+            background: var(--surface-medium);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            outline: none;
+            transition: var(--transition-medium);
+        }
+
+        .chat-input:focus {
+            border-color: var(--accent-neon-blue);
+            box-shadow: 0 0 0 2px rgba(0, 240, 255, 0.3);
+        }
+
+        .chat-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .send-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-round);
+            background: var(--gradient-main);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            box-shadow: var(--shadow-neon-blue);
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            position: absolute;
+            bottom: var(--space-xl);
+            right: var(--space-xl);
+            width: 55px;
+            height: 55px;
+            border-radius: var(--radius-round);
+            background: var(--gradient-accent);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            z-index: 100;
+            box-shadow: var(--shadow-neon-purple);
+        }
+
+        .logout-btn:hover {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        /* Logout Animation */
+        @keyframes logoutSpin {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.5) rotate(180deg); }
+            100% { transform: scale(0) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes appDisintegrate {
+            0% { opacity: 1; transform: scale(1); filter: hue-rotate(0deg); }
+            50% { opacity: 0.8; transform: scale(1.05); filter: hue-rotate(90deg) brightness(1.5); }
+            100% { opacity: 0; transform: scale(0.8); filter: hue-rotate(180deg) brightness(2); }
+        }
+
+        /* Particle Animation */
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .app-container {
+                width: 95%;
+                height: 90vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .chat-header {
+                padding: var(--space-md) var(--space-lg);
+            }
+            
+            .app-logo {
+                font-size: 1.2rem;
+            }
+            
+            .message {
+                max-width: 85%;
+                padding: var(--space-md);
+            }
+            
+            .btn-text {
+                display: none;
+            }
+            
+            .logout-btn {
+                bottom: var(--space-lg);
+                right: var(--space-lg);
+                width: 48px;
+                height: 48px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .app-container {
+                width: 100%;
+                height: 100vh;
+                max-height: none;
+                border-radius: 0;
+            }
+            
+            .app-container::before {
+                border-radius: 0;
+            }
+            
+            .chat-header {
+                padding: var(--space-md);
+            }
+            
+            .chat-messages {
+                padding: var(--space-md);
+            }
+            
+            .chat-input-area {
+                padding: var(--space-md);
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+        }
+
+        .header-profile {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            background: var(--surface-light);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-right: auto;
+            margin-left: var(--space-lg);
+            transition: var(--transition-medium);
+        }
+
+        .header-profile:hover {
+            background: var(--surface-medium);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+        
+        .profile-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-neon-blue), var(--accent-neon-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 14px;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+        }
+        
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .profile-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .profile-id {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-profile {
+                margin-left: var(--space-sm);
+                padding: var(--space-xs) var(--space-sm);
+            }
+            
+            .profile-info {
+                max-width: 100px;
+                overflow: hidden;
+            }
+            
+            .profile-name, .profile-id {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-left {
+                flex: 0;
+            }
+            
+            .header-profile {
+                flex: 1;
+                margin-left: var(--space-xs);
+                margin-right: var(--space-xs);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-effects">
+        <div class="bg-grid"></div>
+        <div class="bg-glow"></div>
+        <div class="bg-glow"></div>
+    </div>
+    
+
+    <div class="app-container" id="app-container">
+        <div class="chat-header">
+            <div class="header-left">
+                <div class="app-logo">MIND MATRIX </div>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-outline" onclick="clearChat()">
+                    <i class="fas fa-trash-alt"></i>
+                    <span class="btn-text">Clear Chat</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="chat-messages" id="chat-container"></div>
+        
+        <div class="chat-input-area">
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="user-input" placeholder="Ask me anything about BCA and Tech..." />
+            </div>
+            <button class="send-btn" id="send-btn">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+            
+        </div>
+    </div>
+    <button class="logout-btn" id="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+        </button>
+    <div class="header-profile" id="user-profile" style="position: absolute; bottom: 20px; left: 20px;"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get user data from localStorage
+            const username = localStorage.getItem('currentUser ') || 'Guest';
+            const userId = localStorage.getItem('userId') || 'ID-GUEST';
+            
+            // Create profile HTML
+            const userProfileElement = document.getElementById('user-profile');
+            if (userProfileElement) {
+                // Create avatar with initials
+                const initials = username.substring(0, 2).toUpperCase();
+                
+                userProfileElement.innerHTML = `
+                    <div class="profile-avatar">${initials}</div>
+                    <div class="profile-info">
+                        <div class="profile-name">${username}</div>
+                        <div class="profile-id">${userId}</div>
+                    </div>
+                `;
+            }
+            
+            const chatContainer = document.getElementById("chat-container");
+            const appContainer = document.getElementById("app-container");
+            const userInput = document.getElementById("user-input");
+            const sendButton = document.getElementById("send-btn");
+            const logoutButton = document.getElementById("logout-btn");
+            
+            function appendMessage(sender, message) {
+                const messageDiv = document.createElement("div");
+                messageDiv.classList.add("message", sender);
+                messageDiv.innerText = message;
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            
+            sendButton.addEventListener("click", function () {
+                sendMessage();
+            });
+            
+            userInput.addEventListener("keypress", function (event) {
+                if (event.key === "Enter") {
+                    sendMessage();
+                }
+            });
+            
+            function sendMessage() {
+                const message = userInput.value.trim();
+                if (message === "") return;
+                
+                appendMessage("user", message);
+                userInput.value = "";
+                
+                fetch("http://127.0.0.1:5000/get_response", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: message }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    appendMessage("bot", data.response);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    appendMessage("bot", "⚠️ Server error. Please try again.");
+                });
+            }
+            
+            function clearChat() {
+                chatContainer.innerHTML = "";
+            }
+            
+            // Logout animation and redirection
+            logoutButton.addEventListener("click", function() {
+                // Clear user data
+                localStorage.removeItem('currentUser ');
+                localStorage.removeItem('userId');
+                
+                // Button spin animation
+                this.style.animation = "logoutSpin 1s forwards";
+                
+                // App container disintegration
+                setTimeout(() => {
+                    appContainer.style.animation = "appDisintegrate 1.2s forwards";
+                    createParticles();
+                }, 300);
+                
+                // Redirect after animation
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 1500);
+            });
+
+            function createParticles() {
+                const colors = [
+                    'var(--accent-neon-blue)',
+                    'var(--accent-neon-purple)',
+                    'var(--accent-neon-pink)',
+                    'var(--accent-neon-cyan)'
+                ];
+                
+                // Create particles based on app dimensions
+                const rect = appContainer.getBoundingClientRect();
+                const particleCount = 100;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    // Random position within the app container
+                    const x = rect.left + (Math.random() * rect.width);
+                    const y = rect.top + (Math.random() * rect.height);
+                    
+                    // Create particle
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    
+                    // Random properties
+                    const size = 3 + Math.random() * 8;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 100 + Math.random() * 300;
+                    const duration = 0.8 + Math.random() * 1.2;
+                    
+                    // Set initial styles
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.backgroundColor = color;
+                    particle.style.boxShadow = `0 0 ${size}px ${color}`;
+                    particle.style.left = `${x}px`;
+                    particle.style.top = `${y}px`;
+                    particle.style.opacity = '1';
+                    
+                    // Append to body
+                    document.body.appendChild(particle);
+                    
+                    // Animate
+                    const destinationX = x + Math.cos(angle) * distance;
+                    const destinationY = y + Math.sin(angle) * distance;
+                    
+                    setTimeout(() => {
+                        particle.style.transition = `all ${duration}s cubic-bezier(0.1, 0.8, 0.2, 1)`;
+                        particle.style.transform = 'scale(0)';
+                        particle.style.opacity = '0';
+                        particle.style.left = `${destinationX}px`;
+                        particle.style.top = `${destinationY}px`;
+                    }, 10);
+                    
+                    // Clean up
+                    setTimeout(() => {
+                        particle.remove();
+                    }, duration * 1000 + 100);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

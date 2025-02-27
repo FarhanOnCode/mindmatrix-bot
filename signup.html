@@ -1,0 +1,315 @@
+<!-- signup.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Matrix Signup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Core Design System */
+        :root {
+            /* Colors */
+            --bg-primary: #050b1f;
+            --bg-secondary: #0a1128;
+            --surface-dark: rgba(16, 23, 41, 0.8);
+            --surface-medium: rgba(30, 39, 69, 0.6);
+            --surface-light: rgba(43, 53, 83, 0.5);
+            
+            /* Accent Colors */
+            --accent-neon-blue: #00f0ff;
+            --accent-neon-purple: #b026ff;
+            --accent-neon-pink: #ff2987;
+            --accent-neon-cyan: #00e1d9;
+            
+            /* Text Colors */
+            --text-primary: rgba(255, 255, 255, 0.95);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.5);
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-xxl: 3rem;
+            
+            /* Sizing */
+            --radius-sm: 0.5rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            --radius-round: 9999px;
+            
+            /* Shadows */
+            --shadow-sm: 0 5px 10px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Background Effects */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(to right, rgba(43, 53, 83, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(43, 53, 83, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center;
+        }
+
+        /* Main Signup Container */
+        .signup-container {
+            width: 90%;
+            max-width: 400px;
+            background: var(--surface-dark);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(16px);
+            position: relative;
+            transition: transform 0.5s ease;
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .signup-header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-neon-blue);
+        }
+
+        /* Input Fields */
+        .input-field {
+            margin-bottom: var(--space-md);
+        }
+
+        .input-field label {
+            display: block;
+            margin-bottom: var(--space-xs);
+            color: var(--text-secondary);
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: var(--space-md);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            background: var(--surface-medium);
+            color: var(--text-primary);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-field input:focus {
+            border-color: var(--accent-neon-blue);
+            box-shadow: 0 0 0 2px rgba(0, 240, 255, 0.3);
+        }
+
+        /* Signup Button */
+        .signup-btn {
+            width: 100%;
+            padding: var(--space-md);
+            border-radius: var(--radius-lg);
+            background: var(--gradient-main);
+            color: var(--text-primary);
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s;
+            box-shadow: var(--shadow-neon-blue);
+        }
+
+        .signup-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-neon-purple);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: var(--space-lg);
+            color: var(--text-muted);
+        }
+
+        .footer a {
+            color: var(--accent-neon-cyan);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animation for switching between login and signup */
+        .fade-out {
+            animation: fadeOut 0.5s forwards;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-effects">
+        <div class="bg-grid"></div>
+    </div>
+    
+    <div class="signup-container">
+        <div class="signup-header">
+            <h1>Sign Up</h1>
+        </div>
+        <div class="error-message" id="error-message"></div>
+        <form id="signupForm" onsubmit="return handleSignup(event)">
+            <div class="input-field">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter your username" required>
+            </div>
+            <div class="input-field">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-field">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <div class="input-field">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+            </div>
+            <button type="submit" class="signup-btn" id="signup-btn">
+                Sign Up
+                <span class="spinner" id="signup-spinner"></span>
+            </button>
+        </form>
+        <div class="footer">
+            <p>Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+    </div>
+
+    <script>
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        function hideError() {
+            document.getElementById('error-message').style.display = 'none';
+        }
+
+        function setLoading(loading) {
+            const button = document.getElementById('signup-btn');
+            const spinner = document.getElementById('signup-spinner');
+            button.disabled = loading;
+            button.classList.toggle('disabled', loading);
+            spinner.style.display = loading ? 'inline-block' : 'none';
+            if (loading) {
+                button.textContent = 'Signing up... ';
+                button.appendChild(spinner);
+            } else {
+                button.textContent = 'Sign Up';
+            }
+        }
+
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        async function handleSignup(event) {
+    event.preventDefault();
+    hideError();
+
+    const username = document.getElementById('username').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+
+    // Validation
+    if (!username || !email || !password || !confirmPassword) {
+        showError('Please fill in all fields');
+        return false;
+    }
+
+    if (password !== confirmPassword) {
+        showError('Passwords do not match');
+        return false;
+    }
+
+    setLoading(true);
+
+    try {
+        const response = await fetch('http://localhost:5000/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert('Signup successful! Please login.');
+            window.location.href = 'login.html';
+        } else {
+            showError(data.message);
+        }
+    } catch (error) {
+        showError('An error occurred. Please try again.');
+        console.error('Signup error:', error);
+    } finally {
+        setLoading(false);
+    }
+
+    return false;
+}
+    </script>
+</body>
+</html>

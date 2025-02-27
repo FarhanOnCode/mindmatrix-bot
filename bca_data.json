@@ -1,0 +1,190 @@
+{
+    "subjects": {
+        "Computer Fundamentals": {
+            "books": [
+                "Computer Fundamentals by P.K. Sinha",
+                "Computer Science: An Overview by J. Glenn Brookshear",
+                "Fundamentals of Computers by V. Rajaraman",
+                "Computers: Basics & Beyond by Vikas Gupta"
+            ],
+            "important_topics": [
+                "Basic Computer Organization",
+                "Data Representation",
+                "Input/Output Devices",
+                "Memory Units",
+                "Binary Arithmetic",
+                "Boolean Logic & Gates"
+            ],
+            "pyqs": [
+                "Explain the basic components of a computer.",
+                "What is an operating system?",
+                "Differentiate between RAM and ROM.",
+                "Convert (101101)₂ to decimal."
+            ]
+        },
+        "Programming in C": {
+            "books": [
+                "Let Us C by Yashavant Kanetkar",
+                "C Programming Language by Brian W. Kernighan & Dennis Ritchie",
+                "Programming in ANSI C by E. Balagurusamy",
+                "C: How to Program by Paul Deitel"
+            ],
+            "important_topics": [
+                "Data Types",
+                "Control Structures",
+                "Functions",
+                "Pointers",
+                "Structures & Unions",
+                "File Handling in C"
+            ],
+            "pyqs": [
+                "Write a program to find the factorial of a number.",
+                "Explain pointers in C.",
+                "Differentiate between call by value and call by reference.",
+                "Write a C program to reverse a string."
+            ]
+        },
+        "Java Programming": {
+            "books": [
+                "Head First Java by Kathy Sierra",
+                "Effective Java by Joshua Bloch",
+                "Java: The Complete Reference by Herbert Schildt",
+                "Core Java Volume I by Cay S. Horstmann"
+            ],
+            "important_topics": [
+                "OOP Concepts",
+                "Exception Handling",
+                "Java Collections",
+                "Multithreading",
+                "JDBC",
+                "Lambda Expressions"
+            ],
+            "pyqs": [
+                "What is polymorphism in Java?",
+                "Explain the concept of inheritance.",
+                "What are checked and unchecked exceptions?",
+                "Write a Java program to implement multithreading."
+            ]
+        },
+        "Database Management Systems": {
+            "books": [
+                "Database System Concepts by Silberschatz, Korth, and Sudarshan",
+                "SQL in 10 Minutes by Ben Forta",
+                "Fundamentals of Database Systems by Elmasri & Navathe",
+                "SQL for Dummies by Allen G. Taylor"
+            ],
+            "important_topics": [
+                "Normalization",
+                "SQL Queries",
+                "Transactions",
+                "Indexes & Keys",
+                "ACID Properties",
+                "NoSQL Databases"
+            ],
+            "pyqs": [
+                "What is normalization? Explain its types.",
+                "Write an SQL query to find the second highest salary.",
+                "What are the ACID properties of a transaction?",
+                "Differentiate between SQL and NoSQL databases."
+            ]
+        },
+        "Artificial Intelligence": {
+            "books": [
+                "Artificial Intelligence: A Modern Approach by Stuart Russell & Peter Norvig",
+                "Deep Learning by Ian Goodfellow",
+                "Pattern Recognition and Machine Learning by Christopher Bishop"
+            ],
+            "important_topics": [
+                "Search Algorithms",
+                "Knowledge Representation",
+                "Expert Systems",
+                "Machine Learning Basics",
+                "Neural Networks",
+                "Natural Language Processing"
+            ],
+            "pyqs": [
+                "What is the difference between supervised and unsupervised learning?",
+                "Explain the working of a neural network.",
+                "What are heuristic search techniques?",
+                "Describe the applications of AI in real life."
+            ]
+        },
+        "Cloud Computing": {
+            "books": [
+                "Cloud Computing: Principles and Paradigms by Rajkumar Buyya",
+                "Architecting the Cloud by Michael J. Kavis",
+                "Cloud Computing for Dummies by Judith Hurwitz"
+            ],
+            "important_topics": [
+                "Cloud Deployment Models",
+                "Virtualization",
+                "AWS, Azure, GCP",
+                "Serverless Computing",
+                "Cloud Security"
+            ],
+            "pyqs": [
+                "What is the difference between IaaS, PaaS, and SaaS?",
+                "Explain how virtualization works in cloud computing.",
+                "Discuss the advantages and disadvantages of cloud computing."
+            ]
+        },
+        "Cybersecurity": {
+            "books": [
+                "Hacking: The Art of Exploitation by Jon Erickson",
+                "The Web Application Hacker's Handbook by Dafydd Stuttard",
+                "Cybersecurity for Dummies by Joseph Steinberg"
+            ],
+            "important_topics": [
+                "Ethical Hacking",
+                "Network Security",
+                "Encryption & Cryptography",
+                "Firewalls & IDS",
+                "Cyber Threats & Attacks"
+            ],
+            "pyqs": [
+                "What are the common types of cyber attacks?",
+                "Explain the working of a firewall.",
+                "What is ethical hacking? Differentiate between black-hat and white-hat hackers."
+            ]
+        },
+        "Machine Learning": {
+            "books": [
+                "Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow by Aurélien Géron",
+                "Python Machine Learning by Sebastian Raschka",
+                "The Hundred-Page Machine Learning Book by Andriy Burkov"
+            ],
+            "important_topics": [
+                "Supervised vs Unsupervised Learning",
+                "Regression vs Classification",
+                "Neural Networks",
+                "Feature Engineering",
+                "Gradient Descent",
+                "Hyperparameter Tuning"
+            ],
+            "pyqs": [
+                "What is overfitting and how can it be prevented?",
+                "Explain the concept of backpropagation in neural networks.",
+                "Differentiate between classification and clustering."
+            ]
+        },
+        "Blockchain Technology": {
+            "books": [
+                "Mastering Bitcoin by Andreas M. Antonopoulos",
+                "Blockchain Basics by Daniel Drescher",
+                "The Blockchain Revolution by Don Tapscott"
+            ],
+            "important_topics": [
+                "Bitcoin & Ethereum",
+                "Consensus Mechanisms",
+                "Smart Contracts",
+                "Decentralization",
+                "Cryptographic Hashing"
+            ],
+            "pyqs": [
+                "What is a blockchain and how does it work?",
+                "Explain the concept of smart contracts.",
+                "What is the role of cryptographic hashing in blockchain?"
+            ]
+        }
+    }
+}
